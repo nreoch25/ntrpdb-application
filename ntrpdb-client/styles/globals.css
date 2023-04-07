@@ -1,0 +1,239 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow: auto;
+}
+
+#root,
+body,
+html {
+  height: 100%;
+  width: 100%;
+}
+#app {
+  position: relative;
+  background: #fff;
+  min-height: 100vh;
+}
+
+.header-logo {
+  float: left;
+  height: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.3);
+  display: flex;
+}
+
+.header-logo__image {
+  height: 40px;
+}
+
+.header-logo__text {
+  margin-left: 8px;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 40px;
+}
+
+.log-in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.log-in-card,
+.profile-card {
+  width: 450px;
+  text-align: center;
+  padding: 10px 0 20px;
+}
+.log-in-card__intro-title.ant-typography,
+.log-in-card__intro-title.ant-typography + h3.ant-typography {
+  margin-top: 5px;
+}
+.log-in-card__button {
+  margin: 20px auto;
+  border-radius: 2px;
+  background-color: #4285f4;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.24), 0 0 1px 0 rgba(0, 0, 0, 0.12);
+  border: none;
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  color: #fff;
+  cursor: pointer;
+  width: 55%;
+}
+
+.log-in-card__google {
+  background-color: #4285f4;
+}
+
+.log-in-card__linkedin {
+  background-color: #0077b5;
+}
+
+.log-in-card__facebook {
+  background-color: #4267b2;
+}
+
+.log-in-card__button:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+}
+.log-in-card__button:active {
+  background: #3367d6;
+}
+.log-in-card__button-logo {
+  height: 43px;
+}
+.log-in-card__button-text {
+  text-align: left;
+  white-space: nowrap;
+  padding: 10px;
+}
+
+.profile {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  flex: none;
+}
+
+.profile-card {
+  width: 700px;
+  text-align: center;
+  padding: 0;
+  height: fit-content;
+}
+
+.display-profile-card {
+  width: 800px;
+}
+
+.justify-right {
+  justify-content: flex-end;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.loading-container {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  padding: 60px 120px;
+  /* background-image: url(/static/media/map-background.c21df147.jpg); */
+  background-repeat: no-repeat;
+  background-position: 10% 0;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+/* And design overrides */
+.ant-upload.ant-upload-select-picture-card {
+  width: 250px;
+  height: 250px;
+  padding: 15px;
+}
+
+.club-card__cover-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.club-card__rating-tag {
+  position: absolute;
+  top: 5px;
+  right: 0;
+}
+
+.club-card__description {
+  padding-bottom: 20px;
+}
+
+.club-card__title {
+  font-size: 18 px;
+}
+
+.club-card__price.ant-typography {
+  color: #1d226c;
+}
+
+.club-card__price.ant-typography span {
+  color: #bfbfbf;
+  font-weight: 400;
+}
+
+.club-card__title.ant-typography,
+.club-card__address.ant-typography {
+  display: block;
+}
+
+.club-card__dimensions i,
+.club-card__dimensions span {
+  padding-right: 10px;
+  font-size: 13px;
+}
+
+.club-card__dimensions span {
+  color: #bfbfbf;
+}
+
+.club-card__dimensions--guests {
+  float: right;
+}
+
+.club-card__dimensions--guests span {
+  padding-right: 0;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.page-skeleton__paragraph {
+  padding-bottom: 40px;
+}
+
+.clubs-skeleton__card {
+  margin: 5px 0;
+}
+.clubs-skeleton__card-cover-img {
+  width: 100%;
+  height: 200px;
+}
+
+.profile__form-image-upload img {
+  width: 125px;
+}

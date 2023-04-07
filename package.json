@@ -1,0 +1,17 @@
+{
+  "name": "ntrpdb-application",
+  "version": "1.0.0",
+  "description": "A FullStack NextJS and GraphQL application for NTRPDB",
+  "main": "index.js",
+  "author": "Nigel Reoch",
+  "license": "MIT",
+  "engines": {
+    "node": "16.13.1"
+  },
+  "scripts": {
+    "dev": "concurrently \"cd ntrpdb-server && yarn dev\" \"cd ntrpdb-client && yarn dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.2.1"
+  }
+}
