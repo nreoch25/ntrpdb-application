@@ -9,6 +9,7 @@ import cloudinary from "cloudinary";
 import { ReadStream } from "fs-capacitor";
 import Upload from "graphql-upload/Upload";
 import { Vimeo } from "vimeo";
+import fs from "fs";
 
 const cookieOptions = {
   httpOnly: true,
@@ -39,11 +40,63 @@ const uploadStream = async (fileStream: ReadStream): Promise<any> => {
   });
 };
 
+const completeUploadVideo = async (path: string, filename: string): Promise<string> => {
+  const VimeoClient = new Vimeo(
+    process.env.VIMEO_CLIENT_ID,
+    process.env.VIMEO_CLIENT_SECRET,
+    process.env.VIMEO_ACCESS_TOKEN
+  );
+
+  return new Promise((resolve, reject) => {
+    VimeoClient.upload(
+      path,
+      {
+        name: filename,
+        description: "NTRPDB-APPLICATION video upload",
+      },
+      function (uri) {
+        console.log("Your video URI is: " + uri);
+        resolve(uri);
+      },
+      function (bytes_uploaded, bytes_total) {
+        const percentage = ((bytes_uploaded / bytes_total) * 100).toFixed(2);
+        console.log(bytes_uploaded, bytes_total, percentage + "%");
+      },
+      function (error) {
+        console.log("Failed because: " + error);
+        reject(error);
+      }
+    );
+  });
+};
+
 const uploadPicture = async (picture: Upload) => {
   const { file } = picture;
   const { createReadStream } = file;
   const fileStream = createReadStream();
   const { url } = await uploadStream(fileStream);
+  return url;
+};
+
+const storeVideo = async (fileStream: ReadStream, path: string) => {
+  return new Promise((resolve, reject) =>
+    fileStream
+      .pipe(fs.createWriteStream(path))
+      .on("error", (error: any) => reject(error))
+      .on("finish", () => resolve(path))
+  );
+};
+
+const uploadVideo = async (video: Upload): Promise<string> => {
+  const uploadDir = "./temp";
+  const { file } = video;
+  const { createReadStream, filename } = file;
+  const path = `${uploadDir}/${filename}`;
+  const fileStream = createReadStream();
+
+  await storeVideo(fileStream, path);
+  const url = await completeUploadVideo(path, filename);
+
   return url;
 };
 
@@ -416,29 +469,19 @@ const userResolvers: IResolvers = {
       { input }: UpdateUserArgs,
       { db }: { db: Database }
     ): Promise<SuccessResponse> => {
-      const VimeoClient = new Vimeo(
-        process.env.VIMEO_CLIENT_ID,
-        process.env.VIMEO_CLIENT_SECRET,
-        process.env.VIMEO_ACCESS_TOKEN
-      );
+      const { id, name, ntrp, profilePicture, profileVideo } = input;
 
-      VimeoClient.request(
-        {
-          method: "GET",
-          path: "/tutorial",
-        },
-        function (error, body, status_code, headers) {
-          if (error) {
-            console.log(error);
-          }
-
-          console.log({ body, status_code, headers });
-        }
-      );
-
-      const { id, name, ntrp, profilePicture } = input;
       const userId = id as unknown as ObjectId;
       const profilePictureUrl = profilePicture && (await uploadPicture(profilePicture));
+      const profileVideoUrl = profileVideo && (await uploadVideo(profileVideo));
+
+      /*
+
+        <iframe src="https://player.vimeo.com/video/815919076?h=93d75784fe" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        https://vimeo.com/815919076
+      */
+
+      // TEMP FOR UPLOADING VIDEO
 
       const updateRes = await db.users.findOneAndUpdate(
         { _id: userId },
@@ -447,6 +490,7 @@ const userResolvers: IResolvers = {
             name,
             ntrp,
             ...(profilePictureUrl && { profilePicture: profilePictureUrl }),
+            ...(profileVideoUrl && { profileVideo: profileVideoUrl }),
           },
         },
         { returnDocument: "after" }

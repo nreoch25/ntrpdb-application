@@ -26,8 +26,6 @@ const UpdateProfile = ({ user, setEditMode }) => {
   const onFinish = async (values) => {
     const { profilePicture, profileVideo, name, ntrp } = values;
 
-    console.log({ profilePicture });
-
     const updateVariables = {
       input: {
         id: user.id,
@@ -35,14 +33,13 @@ const UpdateProfile = ({ user, setEditMode }) => {
         ntrp,
         ...(profilePicture &&
           profilePicture[0] && { profilePicture: profilePicture[0].originFileObj }),
-        // profileVideo: profileVideoBase64,
+        ...(profileVideo && profileVideo[0] && { profileVideo: profileVideo[0].originFileObj }),
       },
     };
 
     console.log({ updateVariables });
 
     updateUser({ variables: updateVariables });
-    // imageUpload({ variables: { file: profilePicture[0].originFileObj } });
   };
 
   const normFile = (e) => {

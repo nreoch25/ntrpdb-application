@@ -70,6 +70,5 @@ export const typeDefs = gql`
     logInFacebook(input: LogInInput): User
     logOut: SuccessResponse!
     updateUser(input: UpdateUserInput): SuccessResponse!
-    imageUpload(file: Upload): UploadedFileResponse
   }
 `;

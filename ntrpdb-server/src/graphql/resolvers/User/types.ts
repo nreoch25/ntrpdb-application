@@ -8,6 +8,7 @@ export interface UpdateUserInput {
   name: string;
   ntrp: string;
   profilePicture: Upload;
+  profileVideo: Upload;
 }
 
 export interface UpdateUserArgs {

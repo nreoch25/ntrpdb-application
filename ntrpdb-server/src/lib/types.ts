@@ -1,5 +1,4 @@
 import { Collection, ObjectId } from "mongodb";
-import { ReadStream } from "fs";
 
 export interface Review {
   _id: ObjectId;
