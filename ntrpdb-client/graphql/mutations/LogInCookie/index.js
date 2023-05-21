@@ -8,6 +8,7 @@ export const LOG_IN_COOKIE = gql`
       avatar
       email
       ntrp
+      clubs
       profilePicture
       profileVideo
     }

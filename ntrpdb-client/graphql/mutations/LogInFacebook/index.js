@@ -11,13 +11,7 @@ export const LOG_IN_FACEBOOK = gql`
       ntrp
       profilePicture
       profileVideo
-      clubs {
-        id
-        address
-        name
-        photo
-        website
-      }
+      clubs
     }
   }
 `;

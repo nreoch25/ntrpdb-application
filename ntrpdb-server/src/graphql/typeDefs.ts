@@ -10,7 +10,7 @@ export const typeDefs = gql`
     avatar: String
     email: String
     ntrp: String
-    clubs: [Club]
+    clubs: [String]
     reviews: [Review]
     profilePicture: String
     profileVideo: String
@@ -52,6 +52,7 @@ export const typeDefs = gql`
     id: ID!
     name: String
     ntrp: String
+    clubs: [String]
     profilePicture: Upload
     profileVideo: Upload
   }

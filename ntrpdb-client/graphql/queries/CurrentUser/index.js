@@ -11,13 +11,7 @@ export const CURRENT_USER = gql`
       ntrp
       profilePicture
       profileVideo
-      clubs {
-        id
-        address
-        name
-        photo
-        website
-      }
+      clubs
     }
   }
 `;

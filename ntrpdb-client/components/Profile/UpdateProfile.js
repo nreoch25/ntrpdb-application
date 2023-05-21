@@ -2,15 +2,14 @@
 import { Form, Input, Button, Select, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useUpdateUserMutation } from "../../hooks/useUpdateMutation";
-// import { useImageUploadMutation } from "../../hooks/useImageUpload";
 
 const { Item } = Form;
 const { Option } = Select;
 
-const UpdateProfile = ({ user, setEditMode }) => {
+const UpdateProfile = ({ user, setEditMode, clubs }) => {
   console.log({ user });
   const { updateUser, loading: mutationLoading } = useUpdateUserMutation({ setEditMode });
-  // const { imageUpload } = useImageUploadMutation();
+
   const [form] = Form.useForm();
 
   const dummyRequest = (options) => {
@@ -24,13 +23,14 @@ const UpdateProfile = ({ user, setEditMode }) => {
   };
 
   const onFinish = async (values) => {
-    const { profilePicture, profileVideo, name, ntrp } = values;
+    const { profilePicture, profileVideo, name, clubs, ntrp } = values;
 
     const updateVariables = {
       input: {
         id: user.id,
         name,
         ntrp,
+        ...(clubs && { clubs }),
         ...(profilePicture &&
           profilePicture[0] && { profilePicture: profilePicture[0].originFileObj }),
         ...(profileVideo && profileVideo[0] && { profileVideo: profileVideo[0].originFileObj }),
@@ -95,6 +95,27 @@ const UpdateProfile = ({ user, setEditMode }) => {
           <Option value="6.0">6.0</Option>
           <Option value="6.5">6.5</Option>
           <Option value="7.0">7.0</Option>
+        </Select>
+      </Item>
+
+      <Item
+        name="clubs"
+        label="Clubs"
+        rules={[
+          {
+            required: false,
+            message: "Please select your Clubs",
+          },
+        ]}
+      >
+        <Select placeholder="Please select your Clubs" mode="multiple">
+          {clubs.map((club, index) => {
+            return (
+              <Option value={club.id} key={index}>
+                {club.name}
+              </Option>
+            );
+          })}
         </Select>
       </Item>
 
